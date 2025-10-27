@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: online-filemaster
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGODB_URI
+        fromSecret: MONGODB_URI
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: NODE_ENV
+        value: production
