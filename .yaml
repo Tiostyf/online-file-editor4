@@ -1,0 +1,24 @@
+build:
+  builder: "nixpacks"
+
+deploy:
+  startCommand: "cd backend && npm start"
+  restartPolicy:
+    type: "ON_FAILURE"
+    maxRetries: 10
+
+services:
+  - name: filemaster-backend
+    type: web
+    sourcePath: backend
+    startCommand: npm start
+    env:
+      NODE_ENV: production
+
+  - name: filemaster-frontend
+    type: static
+    sourcePath: frontend
+    buildCommand: npm run build
+    outputPath: dist
+    env:
+      NODE_ENV: production
