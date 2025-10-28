@@ -1,5 +1,6 @@
 // src/api.js
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+//const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://online-file-editor4.onrender.com/api';
 
 const TOKEN_KEY = 'auth_token';
 

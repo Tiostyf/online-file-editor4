@@ -1,16 +1,18 @@
-// vite.config.js
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
   server: {
+    port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001', // your backend
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+        target: process.env.VITE_API_URL || 'https://online-file-editor4.onrender.com',
+        changeOrigin: true
+      }
+    }
   },
-});
+  define: {
+    'process.env': {}
+  }
+})

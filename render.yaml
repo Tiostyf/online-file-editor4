@@ -1,14 +1,9 @@
 services:
   - type: web
-    name: online-filemaster
-    env: node
-    plan: free
-    buildCommand: cd backend && npm install
-    startCommand: cd backend && npm start
+    name: filemaster-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
     envVars:
-      - key: MONGODB_URI
-        fromSecret: MONGODB_URI
-      - key: JWT_SECRET
-        fromSecret: JWT_SECRET
-      - key: NODE_ENV
-        value: production
+      - key: VITE_API_URL
+        value: https://online-file-editor4.onrender.com
