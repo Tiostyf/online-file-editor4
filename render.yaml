@@ -1,9 +1,42 @@
+# render.yaml
 services:
+  # Backend API Service
+  - type: web
+    name: filemaster-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: |
+      npm install
+      npm run build || echo "Build completed"
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: filemaster-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+
+  # Frontend Service
   - type: web
     name: filemaster-frontend
     env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    buildCommand: |
+      npm install
+      npm run build
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        value: https://online-file-editor4.onrender.com
+        value: https://filemaster-backend.onrender.com
+
+databases:
+  - name: filemaster-db
+    plan: free
+    region: oregon
+    databaseName: filecompressor
+    ipAllowList: []
